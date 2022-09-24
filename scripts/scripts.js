@@ -1,21 +1,48 @@
 'use strict';
-let money = 100000, //Доход за месяц
-    income = 'Фриланс', //Дополнительный доход
-    addExpenses = 'Коммуналка, маникюр, фитнес', // Дополнительные расходы
-    deposit = false,
-    mission = 1000000, // Сумма, которую нужно накопить
-    period = 12,
-    budgetDay = money/30; //Дневной бюджет
+let start = document.getElementById('start'),
+    addIncomeButton = document.getElementsByTagName('button')[0],
+    addExpensesButton = document.getElementsByTagName('button')[1],
+    deposit = document.querySelector('.deposit-check'),
+    itemIncome = document.querySelectorAll('.additional_income-item'),
 
-console.log('Тип данных money: '+ typeof money);
-console.log('Тип данных income: ' + typeof income);
-console.log('Тип данных deposit: ' + typeof deposit);
-console.log('Длина строки Фриланс: ' + income.length);
-console.log(`Период: ${period} месяцев`);
-console.log(`Цель заработать: ${mission} рублей`);
+    budgetDay = document.getElementsByClassName('budget_day-value'),
+    budgetMonth = document.getElementsByClassName('budget_month-value'),
+    expensesMonth = document.getElementsByClassName('expenses_month-value'),
+    addIncome = document.getElementsByClassName('additional_income-value'),
+    addExpenses = document.getElementsByClassName('additional_income-value'),
+    incomePeriod = document.getElementsByClassName('income_period-value'),
+    targetMonth = document.getElementsByClassName('target_month-value'),
 
-let addExpensesArray = addExpenses.toLowerCase().split(',');
-console.log(addExpensesArray);
+    money = document.querySelector('.salary-amount'),
 
-let budgetDayRemainder = money%30;
-console.log(budgetDay, budgetDayRemainder);
+    incomeTitle = document.querySelector('.income-title'),
+    incomeAmount = document.querySelector('.income-amount'),
+    expensesTitle = document.querySelector('.expenses-title'),
+    expensesAmount = document.querySelector('.expenses-amount'),
+    addExpensesItem = document.querySelector('.additional_expenses-item'),
+
+    mission = document.querySelector('.target-amount'),
+    period = document.querySelector('.period-select');
+
+
+console.log(start,
+    addIncomeButton,
+    addExpensesButton,
+    deposit,
+    itemIncome,
+    budgetDay,
+    budgetMonth,
+    expensesMonth,
+    addIncome,
+    addExpenses,
+    incomePeriod,
+    targetMonth,
+    money,
+    incomeTitle,
+    incomeAmount,
+    expensesTitle,
+    expensesAmount,
+    addExpensesItem,
+    mission,
+    period,
+     );
