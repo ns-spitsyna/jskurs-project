@@ -18,7 +18,21 @@ let start = document.querySelector('#start'),
     additionalExpenses = document.querySelector('.additional_expenses-item'),
     targetAmount = document.querySelector('.target-amount'), // Сумма, которую нужно накопить
     periodSelect = document.querySelector('.period-select'),
-    data = document.querySelector('.data').querySelectorAll('input[type=text]');
+    data = document.querySelector('.data').querySelectorAll('input[type=text]'),
+    inputName = document.querySelector('.data').querySelectorAll('input[placeholder=Наименование]'),
+    inputSum = document.querySelector('.data').querySelectorAll('input[placeholder=Сумма]');
+
+    inputName.forEach(item =>{
+        item.addEventListener('input', () => {
+            item.value = item.value.replace(/[^а-я]/,'');
+        });
+    });
+
+    inputSum.forEach(item =>{
+        item.addEventListener('input', () => {
+            item.value = item.value.replace(/[^0-9\.]/g,'');
+        });
+    });
 
     let appData = {
         budget: 0,
@@ -51,7 +65,9 @@ let start = document.querySelector('#start'),
         // Добавить обязательные расходы
         addExpensesBlock: function(){
             let cloneExpensesItem = expensesItems[0].cloneNode(true);
+            cloneExpensesItem.querySelectorAll('input').forEach(item => item.value = '');
             expensesItems[0].parentNode.insertBefore(cloneExpensesItem, addExpensesButton);
+            console.log(cloneExpensesItem,expensesItems ,expensesItems[0]);
             expensesItems = document.querySelectorAll('.expenses-items');
             if(expensesItems.length === 3) {
                 addExpensesButton.style.display = 'none';
@@ -60,6 +76,7 @@ let start = document.querySelector('#start'),
 
         addIncomeBlock: function(){
             let cloneIncomeItem = incomeItems[0].cloneNode(true);
+            cloneIncomeItem.querySelectorAll('input').forEach(item => item.value = '');
             incomeItems[0].parentNode.insertBefore(cloneIncomeItem, addIncomeButton);
             incomeItems = document.querySelectorAll('.income-items');
             if(incomeItems.length === 3) {
@@ -184,14 +201,6 @@ function getNumber(question, defaultValue) {
     return answerValue;
 };
 
-function getString(question, defaultValueqQuestion) {
-    let answerValueString;
-    do {
-        answerValueString = prompt(question, defaultValueqQuestion);
-    }
-    while (Number(answerValueString) || answerValueString === '' || answerValueString === null);
-    return answerValueString;
-};
 
 start.addEventListener('click', appData.start);
 addExpensesButton.addEventListener('click', appData.addExpensesBlock);
