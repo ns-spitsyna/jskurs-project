@@ -23,7 +23,7 @@ let startBtn = document.querySelector('#start'),
     inputName = document.querySelector('.data').querySelectorAll('input[placeholder=Наименование]'),
     inputSum = document.querySelector('.data').querySelectorAll('input[placeholder=Сумма]');
 
-    const AppData = function(){
+    const AppData = function() {
         this.budget = 0;
         this.budgetDay = 0; //Дневной бюджет
         this.budgetMonth = 0; // Бюджет за месяц
@@ -211,10 +211,6 @@ let startBtn = document.querySelector('#start'),
         periodSelect.addEventListener('input', _this.getPeriod);
     };
 
-
-
-
-
     inputName.forEach(item =>{
         item.addEventListener('input', () => {
             item.value = item.value.replace(/[^а-я]/,'');
@@ -226,8 +222,6 @@ let startBtn = document.querySelector('#start'),
             item.value = item.value.replace(/[^0-9\.]/g,'');
         });
     });
-
-
 
 function getNumber(question, defaultValue) {
     let answerValue;
