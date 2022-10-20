@@ -1,13 +1,13 @@
 window.addEventListener('DOMContentLoaded', function() {
     'use strict';
     // Timer
-    function countTimer(deadline) {
-        let timerHours = document.querySelector('#timer-hours'),
+    const countTimer = (deadline) => {
+        const timerHours = document.querySelector('#timer-hours'),
             timerMinutes = document.querySelector('#timer-minutes'),
             timerSeconds = document.querySelector('#timer-seconds');
 
-        function getTimeREmaining() {
-            let dateStop = new Date(deadline).getTime(),
+       const getTimeREmaining = () => {
+            const dateStop = new Date(deadline).getTime(),
                 dateNow = new Date().getTime(),
                 timeRemaning = (dateStop - dateNow)/1000,
                 seconds = Math.floor(timeRemaning % 60),
@@ -15,13 +15,19 @@ window.addEventListener('DOMContentLoaded', function() {
                 hours = Math.floor(timeRemaning / 60 / 60);
                 return {timeRemaning, hours, minutes, seconds};
         }
+        const addZero = (number) => {
+            if(number < 10)  {
+                return '0' + number;
+            }
+            return number;
+        }
 
-        function updateClock() {
+        const updateClock = () => {
             let timer = getTimeREmaining();
 
-            timerHours.textContent = addNull(timer.hours);
-            timerMinutes.textContent = addNull(timer.minutes);
-            timerSeconds.textContent = addNull(timer.seconds);
+            timerHours.textContent = addZero(timer.hours);
+            timerMinutes.textContent = addZero(timer.minutes);
+            timerSeconds.textContent = addZero(timer.seconds);
 
 
             if(timer.timeRemaning > 0){
@@ -35,15 +41,62 @@ window.addEventListener('DOMContentLoaded', function() {
                 timer.minutes = 0;
                 timer.seconds = 0;
             }
-
-            function addNull(number) {
-                if(number < 10)  {
-                    return '0' + number;
-                }
-                return number;
-            }
         }
         updateClock();
     }
-    countTimer('20 oct 2022');
+    countTimer('21 oct 2022');
+
+    //Menu
+    const scrollDown = (blockId) => {
+        const scrollBlockId = blockId.getAttribute('href');
+            const scrollBlock = document.querySelector(scrollBlockId).getBoundingClientRect();
+            window.scroll({left: scrollBlock.left, top: scrollBlock.top, behavior: 'smooth'});
+    };
+
+    const toggleMenu = () => {
+        const btnMenu = document.querySelector('.menu'),
+            menu = document.querySelector('menu'),
+            closeBtn = document.querySelector('.close-btn'),
+            menuItems = document.querySelectorAll('ul>li');
+            const handlerMenu = () => {
+                menu.classList.toggle('active-menu');
+            };
+
+        btnMenu.addEventListener('click', handlerMenu);
+
+        closeBtn.addEventListener('click', handlerMenu);
+        menuItems.forEach(item => item.addEventListener('click', (event) => {
+            handlerMenu();
+            event.preventDefault();
+            scrollDown(event.target);
+        }));
+
+    };
+    toggleMenu();
+
+    //Popup
+
+    const togglePopup = () => {
+        const popup = document.querySelector('.popup'),
+            popupBtn = document.querySelectorAll('.popup-btn'),
+            popupClose = document.querySelector('.popup-close');
+
+            popupBtn.forEach(elem => {
+                elem.addEventListener('click', () => {
+                    popup.style.display = 'block';
+                });
+            });
+
+            popupClose.addEventListener('click', () => {
+                popup.style.display = 'none';
+            });
+    };
+    togglePopup();
+
+    //Button down
+    const scrollNextBtn = document.querySelector('.scroll-next-btn');
+    scrollNextBtn.addEventListener('click', (event) => {
+        event.preventDefault();
+        scrollDown(scrollNextBtn);
+    });
 });
