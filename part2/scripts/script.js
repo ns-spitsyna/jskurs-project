@@ -238,6 +238,31 @@ window.addEventListener('DOMContentLoaded', function() {
     };
 
     slider();
+
+    // our team
+
+    const togglePhoto = () => {
+        const commandPhoto = document.querySelectorAll('.command__photo');
+        commandPhoto.forEach((item) => {
+            let srcItem = item.src;
+            item.addEventListener('mouseover', event => event.target.src = event.target.dataset.img);
+            item.addEventListener('mouseout', event =>  event.target.src = srcItem);
+        });
+    };
+    togglePhoto();
+
+    // Calculate the cost
+    const formValidation = (elem) => {
+        let valueElement = document.querySelector(elem);
+        valueElement.addEventListener('input', () => {
+            valueElement.value = valueElement.value.replace(/\D/g, '');
+        });
+    };
+
+    formValidation('.calc-square');
+    formValidation('.calc-count');
+    formValidation('.calc-day');
+
 });
 
 class SliderCarousel {
@@ -396,3 +421,4 @@ class SliderCarousel {
         window.addEventListener('resize', checkResponse);
     }
 }
+
