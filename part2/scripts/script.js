@@ -243,10 +243,9 @@ window.addEventListener('DOMContentLoaded', function() {
 
     const togglePhoto = () => {
         const commandPhoto = document.querySelectorAll('.command__photo');
-        commandPhoto.forEach((item) => {
-            let srcItem = item.src;
+        commandPhoto.forEach(item => {
             item.addEventListener('mouseover', event => event.target.src = event.target.dataset.img);
-            item.addEventListener('mouseout', event =>  event.target.src = srcItem);
+            item.addEventListener('mouseout', event =>  event.target.src = item.src);
         });
     };
     togglePhoto();
@@ -262,7 +261,6 @@ window.addEventListener('DOMContentLoaded', function() {
     formValidation('.calc-square');
     formValidation('.calc-count');
     formValidation('.calc-day');
-
 });
 
 class SliderCarousel {
