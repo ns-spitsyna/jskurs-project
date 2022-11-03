@@ -432,6 +432,30 @@ class SliderCarousel {
                 outline: none;
                 background: transparent;
             }
+            input.success {
+                background-color: #d2e9d2;
+            }
+
+            input.error {
+                background-color: #f9a4a4;
+            }
+
+            .validator-error {
+                font-size: 12px;
+                color: red;
+            }
+
+            #form1 .validator-error {
+                transform: translateY(-3rem);
+            }
+
+            .popup .validator-error {
+                transform: translateY(0.5rem);
+            }
+
+            .footer-form .validator-error {
+                transform: translateY(0);
+            }
             `;
         document.head.appendChild(style);
         }
