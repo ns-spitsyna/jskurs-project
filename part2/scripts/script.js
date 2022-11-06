@@ -328,46 +328,49 @@ window.addEventListener('DOMContentLoaded', function() {
                     }
                 });
 
-                postData(body, () => {
-                    statusMessage.textContent = successMessage;
-                    form.reset();
-                }, (error) => {
-                    statusMessage.textContent = errorMessage;
-                    console.error(error);
-                });
+                postData(body)
+                    .then(() => {
+                        statusMessage.textContent = successMessage;
+                        form.reset();
+                    })
+                    .catch(error => {
+                        statusMessage.textContent = errorMessage;
+                        console.error(error);
+                    });
+
             });
 
-            const postData = (body, outputData, errorData) => {
-                const request = new XMLHttpRequest();
-                request.addEventListener('readystatechange', () => {
+            const postData = (body) => {
+                return new Promise((resolve, reject) => {
+                    const request = new XMLHttpRequest();
+                    request.addEventListener('readystatechange', () => {
 
-                    if(request.readyState !== 4) {
-                        return;
+                        if(request.readyState !== 4) {
+                            return;
+                        }
+                        if(request.status === 200) {
+                            resolve();
+                        } else {
+                            reject(request.status);
+                        }
+
+                    });
+
+                    request.open('POST','./server.php' );
+                    //настройка заголовков
+                    request.setRequestHeader('Content-Type', 'application/json');
+
+                    //открываем соединение и отправляем данные
+                    if(Object.keys(body).length !== 0) {
+                        request.send(JSON.stringify(body));
                     }
-                    if(request.status === 200) {
-                        outputData();
-                    } else {
-                        errorData(request.status);
-                    }
-
-                });
-
-                request.open('POST','./server.php' );
-                //настройка заголовков
-                request.setRequestHeader('Content-Type', 'application/json');
-
-                //открываем соединение и отправляем данные
-                if(Object.keys(body).length !== 0) {
-                    request.send(JSON.stringify(body));
-                }
+                })
             }
     };
     sendForm('form1');
     sendForm('form2');
     sendForm('form3');
 });
-
-
 
 class SliderCarousel {
     constructor({
